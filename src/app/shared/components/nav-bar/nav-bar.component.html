@@ -1,0 +1,29 @@
+<div class="header u-unselectable header-animated color-border-2 bg-color-mosaic-1">
+  <div class="header-brand">
+      <div class="nav-item no-hover">
+          <a>
+            <!-- <img src="assets/images/logo-white-destrava.png" class="my-1 mx-2" alt="Mosaicos Interativos"> -->
+            <h6 class="title color-mosaic-2">Mosaiko</h6>
+          </a>
+      </div>
+  </div>
+  <div class="header-nav" id="header-menu">
+      <div class="nav-left">
+        <div *ngFor="let itemMenu of listMenu; let i = index" (click)="clickLink(itemMenu)" class="nav-item" [ngClass]="{'active': itemMenu.isActive === true}">
+          <a class="color-mosaic-hover-5" routerLink="{{itemMenu.link}}">
+            {{itemMenu.title}}
+          </a>
+        </div>
+      </div>
+
+      <div class="nav-right">
+        <div class="nav-item text-center">
+          <a (click)="signOut()" routerLink="">
+              <span class="icon">
+                  <i class="fab fa-wrapper fas fa-sign-out-alt color-mosaic-2" aria-hidden="true"></i>
+              </span>
+          </a>
+      </div>
+      </div>
+  </div>
+</div>

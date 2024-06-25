@@ -1,0 +1,113 @@
+.bg-color-mosaic {
+  background-color: #5F4FA7;
+}
+
+.color-border-1 {
+  border-bottom: 3px solid #5F4FA7;
+}
+
+.color-border-2 {
+  border-bottom: 3px solid #FFBE00;
+}
+
+.color-border-3 {
+  border-bottom: 3px solid #FE1159;
+}
+
+.color-border-4 {
+  border-bottom: 3px solid #FF551A;
+}
+
+.color-mosaic-1 {
+  color: #5F4FA7;
+  font-weight: 600;
+  font-size: 15px;
+  text-transform: uppercase;
+}
+
+.color-mosaic-2 {
+  color: #FFBE00;
+  font-weight: 600;
+  font-size: 15px;
+  text-transform: uppercase;
+}
+
+.color-mosaic-3 {
+  color: #FE1159;
+  font-weight: 600;
+  font-size: 15px;
+  text-transform: uppercase;
+}
+
+.color-mosaic-4 {
+  color: #FF551A;
+  font-weight: 600;
+  font-size: 15px;
+  text-transform: uppercase;
+}
+
+.mosaic-align-pieces {
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pieces-distance {
+  padding: 1px;
+  width: 50px;
+  height: 50px;
+}
+
+.center-all {
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+:root {
+  --rowNum: 5;
+  --colNum: 5;
+  --gridHeight: calc(100% / var(--rowNum) - 5px * (var(--rowNum) - 1) / var(--rowNum));
+  --gridWidth: calc(100% / var(--colNum) - 5px * (var(--colNum) - 1) / var(--colNum));
+}
+.wrapper {
+  display: flex;
+  grid-template-rows: repeat(var(--rowNum), var(--gridHeight));
+  grid-template-columns: repeat(var(--colNum), auto);
+  width: 100%;
+}
+
+.grid-item {
+  grid-column-start: auto;
+  grid-row-start: auto;
+  padding: 1px;
+  width: 100%;
+}
+
+.grid-item-2 {
+  grid-column-start: auto;
+  grid-row-start: auto;
+  padding: 0px;
+  width: 100%;
+  flex-grow: 1;
+}
+
+.status-rounded {
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  float: right;
+  padding: 10px;
+  margin-top: -20px;
+}
+
+.mosaic-width {
+  max-width: var(--widthMosaic);
+  width: var(--widthMosaic);
+}
+
+.borderOnFocus {
+  border: orangered 5px solid;
+}

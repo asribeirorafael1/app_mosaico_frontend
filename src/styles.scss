@@ -1,0 +1,30 @@
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+body {
+  background-color: #ffffff!important;
+  padding-top: 60px;
+  padding: 20px;
+  height: 100% !important;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+.backdrop {
+  background-color: rgba(0, 0, 0, 0.95);
+  position: fixed;
+  top: 0px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+}
+@media (min-width: 992px) {
+  body {
+      padding-top: 0;
+  }
+}
+
+html {
+  height: 100%;
+  min-height: 100%;
+}

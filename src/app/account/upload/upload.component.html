@@ -1,0 +1,294 @@
+<app-loading *ngIf="loading"></app-loading>
+
+<div class="header header-fixed u-unselectable header-animated color-border-2 bg-color-mosaic-1">
+  <div class="header-brand">
+
+    <i [hidden]="!step1 || !step4 || !step5" title="Voltar" class="fas fa-chevron-circle-left"
+      style="width: 25px !important; height: 25px !important; min-width: 1px !important; margin-top: 15px; font-size: 25px; cursor: pointer; color: #FFF"
+      (click)="advanceStep(backIndex)"></i>
+    <div class="nav-item no-hover">
+      <a>
+        <h6 class="title color-mosaic-2">Mosaiko</h6>
+      </a>
+    </div>
+    <div class="nav-item nav-btn no-hover" style="padding: 15px;">
+      <a [hidden]="!step1 || !step5">{{pieceMosaic.quadranteY+"/"+pieceMosaic.quadranteX}}</a>
+    </div>
+  </div>
+  <div class="header-nav">
+    <div class="nav-left">
+      <span></span>
+    </div>
+
+    <div class="nav-right">
+      <div class="nav-item no-hover">
+        <span [hidden]="!step1">{{pieceMosaic.quadranteY+"/"+pieceMosaic.quadranteX}}</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="mt-1 mx-3 content-page u-overflow-auto" [hidden]="step1">
+  <div class="grid grid-gap-3 grid-r-12">
+    <div class="grid-c-12 grid-r-12 frame" style="height: 81vh;">
+      <div class="grid-c-12 grid-r-6 center">
+        <img [src]="photoURL('assets/images/Mosaiko.png')" class="grid-item" style="width: 30vh;" />
+      </div>
+      <div class="grid-c-12 grid-r-4 center"
+        style="text-align: center; width: 100%; letter-spacing: -0.5px; font-weight: 500; margin-top: 2vh;">
+        <span>Olá, seja bem vindo ao MOSAIKO! Separe os seus Materiais Artísticos, digite o seu nome abaixo e clique em começar.</span>
+      </div>
+
+      <div class="grid-c-12 grid-r-2 center" style="margin-top: 2vh;">
+        <div [hidden]="insertedName" class="form-group">
+          <input type="text" class="form-group-input" placeholder="Nome e Sobrenome"
+            [(ngModel)]="pieceMosaic.nome_participante" />
+          <!-- <label class="form-group-label" (click)="updateNamePiece(this.pieceMosaic)">
+            <span class="icon">
+              <i class="fas fa-edit"></i>
+            </span>
+          </label> -->
+        </div>
+        <button class="btn btn-animated button-advance" style="width: 100% !important;"
+          (click)="updateNamePiece(this.pieceMosaic)">COMEÇAR</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mt-1 mx-3 content-page u-overflow-auto" [hidden]="step2">
+  <div class="grid grid-gap-3 grid-r-12">
+    <div class="grid-c-12 grid-r-12 frame" style="height: 81vh;">
+      <div class="grid-c-12 grid-r-6 center">
+        <div class="grid-c-12 center"
+          style="text-align: center; width: 100%; letter-spacing: -0.5px; font-weight: 500; margin-top: 2vh;">
+          <span
+            style="text-align: center; width: 35vh; letter-spacing: -0.5px; font-weight: 700; margin-top: 2vh; font-size: 1.5rem;">1ª
+            ETAPA</span><br>
+          <span>Reproduza o desenho abaixo em um pedaço de papel quadrado. Utilize o máximo possível as mesmas cores do
+            desenho.</span>
+        </div>
+        <img id="imagemPiece" [src]="pieceMosaic.imagem_peca" class="center"
+          style="margin-top: 5px; margin-bottom: 5px; border: 1px rgb(124, 124, 124) solid"
+          src="http://placehold.it/250" alt="your image" />
+      </div>
+      <div class="grid-c-12 grid-r-4 center"
+        style="text-align: center; width: 100%; letter-spacing: -0.5px; font-weight: 500; font-size: 1.1rem;">
+        <span>Só após concluir o desenho clique no botão abaixo.</span>
+      </div>
+      <div class="grid-c-12 grid-r-2 center" style="margin-top: 2vh;">
+        <button class="btn btn-animated button-advance" style="width: 100% !important;"
+          (click)="advanceStep('step3')">PRÓXIMA ETAPA</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mt-1 mx-3 content-page u-overflow-auto" [hidden]="step3">
+  <div class="grid grid-gap-3 grid-r-12 frame" style="height: 81vh;" [hidden]="isMobile || adminVisible">
+    <div class="grid-c-12 grid-r-6 center">
+      <div class="grid-c-12 center"
+        style="text-align: center; width: 100%; letter-spacing: -0.5px; font-weight: 500; margin-top: 2vh;">
+        <span
+          style="text-align: center; width: 35vh; letter-spacing: -0.5px; font-weight: 700; margin-top: 2vh; font-size: 1.5rem;">2ª
+          ETAPA</span><br>
+        <span>Escaneie o QR Code para realizar o envio da peça que você desenhou.</span>
+      </div>
+      <img id="imagemPiece2" [src]="pieceMosaic.qr_image" class="center"
+        style="margin-top: 5px; margin-bottom: 5px; border: 1px rgb(124, 124, 124) solid" src="http://placehold.it/250"
+        alt="your image" />
+      <div class="grid-c-12 center"
+        style="text-align: center; width: 35%; letter-spacing: -0.5px; font-weight: 500; margin-top: 2vh;">
+          <span style="font-size: 11px;">Obs: Você pode ler o QRCode com a sua câmera do celular ou instalar um aplicativo
+            com essa funcionalidade. Caso não seja possível, copie o endereço na parte superior do seu navegador <b style="cursor: pointer; color: blue;" (click)="copyLinkPiece(pieceMosaic)">(clique
+            aqui para copiar)</b> e envie para o seu celular via e-mail, Whatsapp Web ou outra ferramenta.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-gap-3 grid-r-12 frame" style="height: 81vh;" [hidden]="isMobile || !adminVisible">
+
+    <div class="grid-c-12 grid-r-10 center">
+      <div class="grid-c-12 center"
+        style="text-align: center; width: 100%; letter-spacing: -0.5px; font-weight: 500; margin-top: 2vh;">
+        <span
+          style="text-align: center; width: 35vh; letter-spacing: -0.5px; font-weight: 700; margin-top: 2vh; font-size: 1.5rem;">3ª
+          ETAPA</span><br>
+        <span style="font-size: 1.13rem;">Clique no botão abaixo para inserir uma foto do seu desenho.</span>
+
+        <div class="form-group">
+          <label class="form-group-label">
+            <span class="icon">
+              <i class="fas fa-upload"></i>
+            </span>
+          </label>
+          <input id="inputFileCrop" type="file" (change)="readURL($event);" class="form-group-input"
+            placeholder="Upload" />
+        </div>
+
+        <!-- <app-camera [showWebcam]="showWebcam" (pictureTaken)="handleImage($event)"></app-camera> -->
+
+        <!-- <div class="webcam-image" *ngIf="webcamImage">
+          <img [src]="webcamImage.imageAsDataUrl" />
+        </div> -->
+
+        <span *ngIf="imageChangedEvent || imagemParticipante" style="font-size: .8rem;">Antes de enviar a foto,
+          utilize os controles abaixo para ajustar a imagem, removendo o que não faz parte do desenho.</span>
+
+        <div *ngIf="imageChangedEvent || imagemParticipante" style="width: 85%;">
+          <p style="width: 100%; margin-left: 2.9vh;">
+            <i class="fas fa-sync-alt"></i>
+            <ngx-slider [(value)]="valueRotate" [options]="optionsRotate"
+              style="width: 80%; margin-left: 1vh; margin-top: 2vh;" (userChange)="onRotateChange($event)">
+            </ngx-slider>
+          </p>
+          <!-- <p style="width: 100%; margin-left: 2.9vh;">
+            <i class="fas fa-search-plus"></i>
+            <ngx-slider [(value)]="valueZoom" [options]="optionsZoom"
+              style="width: 80%; margin-left: 1vh; margin-top: 2vh;" (userChange)="onZoomChange($event)">
+            </ngx-slider>
+          </p> -->
+        </div>
+
+        <div *ngIf="imageChangedEvent || imagemParticipante" style="height: 285px;">
+          <div class="center col-5" style="width: 250px; height: 250px;">
+            <span>
+              Preview:
+            </span>
+            <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+              [containWithinAspectRatio]="containWithinAspectRatio" [aspectRatio]="1" [resizeToWidth]="250"
+              [cropperMinWidth]="0" [onlyScaleDown]="false" [roundCropper]="false" [canvasRotation]="canvasRotation"
+              [transform]="transform" [style.display]="showCropper ? null : 'none'" [imageBase64]="imagemParticipante"
+              (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady($event)"
+              (loadImageFailed)="loadImageFailed()">
+            </image-cropper>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="grid-c-12 grid-r-2 center" *ngIf="imageChangedEvent || imagemParticipante" style="margin-top: -1vh;">
+      <button class="btn btn-animated button-advance" (click)="sendImageValidation()">ENVIAR</button>
+    </div>
+  </div>
+
+  <div class="grid grid-gap-3 grid-r-12 frame" id="scrollPicture" style="height: 81vh; overflow-x: hidden; overflow-y: visible;" [hidden]="!isMobile || adminVisible">
+
+    <div class="grid-c-12 grid-r-10 center">
+      <div class="grid-c-12 center"
+        style="text-align: center; width: 100%; letter-spacing: -0.5px; font-weight: 500; margin-top: 2vh;">
+        <span
+          style="text-align: center; width: 35vh; letter-spacing: -0.5px; font-weight: 700; margin-top: 2vh; font-size: 1.5rem;">3ª
+          ETAPA</span><br>
+        <span style="font-size: 1.13rem;">Clique no botão abaixo para tirar uma foto do seu desenho.</span>
+
+        <div class="form-group">
+          <label class="form-group-label">
+            <span class="icon">
+              <i class="fas fa-upload"></i>
+            </span>
+          </label>
+          <input id="inputFileCrop" type="file" (change)="readURL($event);" class="form-group-input"
+            placeholder="Upload" />
+        </div>
+
+        <!-- <app-camera [showWebcam]="showWebcam" (pictureTaken)="handleImage($event)"></app-camera> -->
+
+        <div class="webcam-image" style="position: relative; top: -339px; margin-bottom: -289px;" *ngIf="webcamImageExibe">
+          <img [src]="imagemParticipante" />
+        </div>
+
+        <span *ngIf="imageChangedEvent || imagemParticipante" style="font-size: .8rem;">Antes de enviar a foto,
+          utilize os controles abaixo para ajustar a imagem, removendo o que não faz parte do desenho.</span>
+
+        <div *ngIf="imageChangedEvent || imagemParticipante" style="width: 85%;">
+          <p style="width: 100%; margin-left: 2.9vh;">
+            <i class="fas fa-sync-alt"></i>
+            <ngx-slider [(value)]="valueRotate" [options]="optionsRotate"
+              style="width: 80%; margin-left: 1vh; margin-top: 2vh;" (userChange)="onRotateChange($event)">
+            </ngx-slider>
+          </p>
+          <!-- <p style="width: 100%; margin-left: 2.9vh;">
+            <i class="fas fa-search-plus"></i>
+            <ngx-slider [(value)]="valueZoom" [options]="optionsZoom"
+              style="width: 80%; margin-left: 1vh; margin-top: 2vh;" (userChange)="onZoomChange($event)">
+            </ngx-slider>
+          </p> -->
+        </div>
+
+        <div *ngIf="imageChangedEvent || imagemParticipante" style="height: 285px;">
+          <div class="center col-5" style="width: 250px; height: 250px;">
+            <span>
+              Preview:
+            </span>
+            <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+              [containWithinAspectRatio]="containWithinAspectRatio" [aspectRatio]="1" [resizeToWidth]="250"
+              [cropperMinWidth]="0" [onlyScaleDown]="false" [roundCropper]="false" [canvasRotation]="canvasRotation"
+              [transform]="transform" [style.display]="showCropper ? null : 'none'" [imageBase64]="imagemParticipante"
+              (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady($event)"
+              (loadImageFailed)="loadImageFailed()">
+            </image-cropper>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="grid-c-12 grid-r-2 center" *ngIf="imageChangedEvent || imagemParticipante" style="margin-top: -20px;">
+      <button class="btn btn-animated button-advance" (click)="sendImageValidation()">ENVIAR</button>
+    </div>
+  </div>
+</div>
+
+<div class="mt-1 mx-3 content-page u-overflow-auto" [hidden]="step4">
+  <div class="grid grid-gap-3 grid-r-12 frame u-overflow-auto" style="height: 81vh;">
+
+    <div class="grid-c-12 center"
+      style="text-align: center; width: 90%; letter-spacing: -0.5px; font-weight: 500; margin-top: 2vh;">
+      <span
+        style="text-align: center; width: 35vh; letter-spacing: -0.5px; font-weight: 700; margin-top: 2vh; font-size: 1.5rem;">CONFIRMAR
+        IMAGENS</span><br>
+      <span>Verifique se a imagem que você desenhou está com a mesma disposição da imagem sugerida:</span>
+    </div>
+    <div class="grid-c-6">
+      <img id="imagemPiece" [src]="pieceMosaic.imagem_peca" class="center"
+        style="width: 200px; margin-top: 5px; margin-bottom: 5px; border: 1px rgb(124, 124, 124) solid"
+        src="http://placehold.it/250" alt="your image" />
+    </div>
+    <div class="grid-c-6">
+      <img id="imagemPiece" [src]="pieceMosaic.imagem_participante" class="center"
+        style="width: 200px; margin-top: 5px; margin-bottom: 5px; border: 1px rgb(124, 124, 124) solid"
+        src="http://placehold.it/250" alt="your image" />
+    </div>
+    <div class="grid-c-6">
+      <button class="btn btn-animated button-advance" style="width: 100% !important;"
+        (click)="advanceStep('step3')">REAJUSTAR</button>
+    </div>
+    <div class="grid-c-6">
+      <button class="btn btn-animated button-advance" style="width: 100% !important;"
+        (click)="sendImage()">CONFIRMAR</button>
+    </div>
+
+  </div>
+</div>
+
+<div class="mt-1 mx-3 content-page u-overflow-auto" [hidden]="step5">
+  <div class="grid grid-gap-3 grid-r-12">
+    <div class="grid-c-12 grid-r-12 frame" style="height: 81vh;">
+
+      <div class="grid-c-12 center"
+        style="text-align: center; width: 100%; letter-spacing: -0.5px; font-weight: 500; margin-top: 7vh;">
+        <span
+          style="text-align: center; width: 35vh; letter-spacing: -0.5px; font-weight: 700; margin-top: 2vh; font-size: 1.5rem;">PARABÉNS!!!</span><br>
+        <span style="font-size: 1.25rem">Agora aguarde os demais concluírem a atividade!</span>
+      </div>
+      <div class="grid-c-12 grid-r-6 center" style="margin-top: 2vh">
+        <img [src]="photoURL('assets/images/Mosaiko.png')" class="grid-item" style="width: 30vh;" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer [hidden]="step5"></app-footer>

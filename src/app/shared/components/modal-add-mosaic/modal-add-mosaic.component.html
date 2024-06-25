@@ -1,0 +1,87 @@
+<app-loading *ngIf="loading"></app-loading>
+
+<h2 mat-dialog-title class="color-mosaic-1 color-border-2">NOVO MOSAICO</h2>
+<div class="modal-content" role="document">
+  <div class="modal-body">
+    <div class="form-group">
+      <label class="form-group-label">
+        <span class="icon">
+          <i class="far fa-file-alt"></i>
+        </span>
+      </label>
+      <input type="text" class="form-group-input" placeholder="Código do Treinamento"
+        [(ngModel)]="newMosaic.codigo_treinamento" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-group-label">
+        <span class="icon">
+          <i class="fas fa-users"></i>
+        </span>
+      </label>
+      <input type="number" min="4" class="form-group-input" placeholder="Número de Participantes"
+        [(ngModel)]="newMosaic.participantes" />
+      <label class="form-group-label" (click)="cutImageUp()">
+        <span class="icon">
+          <i class="fas fa-sync-alt"></i>
+        </span>
+      </label>
+    </div>
+    <!-- <div class="form-group">
+      <label class="form-group-label">
+        <span class="icon">
+          Lin.
+        </span>
+      </label>
+      <input type="number" class="form-group-input" placeholder="Linhas" [(ngModel)]="newMosaic.eixoY" />
+      <label class="form-group-label">
+        <span class="icon">
+          Col.
+        </span>
+      </label>
+      <input type="number" class="form-group-input" placeholder="Colunas" [(ngModel)]="newMosaic.eixoX" />
+    </div> -->
+
+    <div class="form-group" [hidden]="!newMosaic.participantes">
+      <label class="form-group-label">
+        <span class="icon">
+          <i class="fas fa-upload"></i>
+        </span>
+      </label>
+      <input type="file" (change)="readURL($event);" class="form-group-input" placeholder="Upload" />
+    </div>
+
+    <div [hidden]="!newMosaic.imagem">
+      <span>Upload</span>
+      <img id="imagemUpload" class="center" src="http://placehold.it/300" alt="your image" />
+    </div>
+
+    <div *ngIf="newMosaic.imagem">
+      <span>Preview</span>
+      <div class="animated loading hide-text center-all" *ngIf="loadingImages">
+        <p>Hidden</p>
+      </div>
+
+      <div style="margin-left: auto; margin-right: auto;">
+        <div class="wrapper" *ngIf="!loadingImages">
+          <div *ngFor="let image of arrayMatriz(numColsToCutReal); let x = index">
+            <div class="grid-item" *ngFor="let image of arrayMatriz(numRowsToCutReal); let y = index">
+              <img [src]="returnImageQuadrante(x, y)" class="grid-item" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <div class="form-section u-text-right">
+      <a>
+        <button class="btn-light" style="border-radius: 10px;" (click)="cancel()">Cancelar</button>
+      </a>
+      <a>
+        <button class="btn-success bg-color-mosaic" (click)="save()">Salvar</button>
+      </a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<app-loading *ngIf="loading"></app-loading>
+
+<div class="authentication">
+  <img class="mb-4" src="assets/images/logo.png" alt="" style="z-index: 1;">
+  <form (ngSubmit)="onSubmit()" #form="ngForm" style="margin-top: -50px; z-index: 10; position: relative">
+    <label for="inputEmail" class="visually-hidden">Username</label>
+    <input type="text" name="email" id="email" class="form-control" placeholder="Username" required autofocus [(ngModel)]="login.username">
+    <label for="inputPassword" class="visually-hidden">Password</label>
+    <input type="password" name="password" id="password" class="form-control" placeholder="Password" required [(ngModel)]="login.senha">
+    <button class="w-100 btn btn-lg btn-info" type="submit">Entrar</button>
+  </form>
+</div>
+
+<footer class="footer footer--fixed" style="padding: 0.1rem 0; background-color: #2972fa !important;">
+  <h6 class="footer__title white uppercase" style="margin-top: 12px; font-size: 0.7em; letter-spacing: normal;">DESTRAVA.COM - SOLUÇÕES EM TEAM BUILDING</h6>
+</footer>

@@ -1,0 +1,150 @@
+.content-page{
+  padding-top: 10vh;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mosaic-align-pieces {
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pieces-distance {
+  padding: 1px;
+  width: 50px;
+  height: 50px;
+}
+
+.center-all {
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+:root {
+  --rowNum: 5;
+  --colNum: 5;
+  // --gridHeight: calc(100vh / var(--rowNum) - 5px * (var(--rowNum) - 1) / var(--rowNum));
+}
+.wrapper {
+  display: grid;
+  grid-template-rows: repeat(var(--rowNum), var(--gridHeight));
+  grid-template-columns: repeat(var(--colNum), auto);
+  width: 48%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.grid-item {
+  grid-column-start: auto;
+  grid-row-start: auto;
+  padding: 1px;
+}
+
+.color-border-1 {
+  border-bottom: 3px solid #5F4FA7;
+}
+
+.color-border-2 {
+  border-bottom: 3px solid #FFBE00;
+}
+
+.color-border-3 {
+  border-bottom: 3px solid #FE1159;
+}
+
+.color-border-4 {
+  border-bottom: 3px solid #FF551A;
+}
+
+.bg-color-mosaic-1 {
+  background-color: #5F4FA7;
+}
+
+.bg-color-mosaic-2 {
+  background-color: #FFBE00;
+}
+
+.bg-color-mosaic-3 {
+  background-color: #FE1159;
+}
+
+.bg-color-mosaic-4 {
+  background-color: #FF551A;
+}
+
+.color-mosaic-1 {
+  color: #5F4FA7 !important;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.color-mosaic-2 {
+  color: #FFBE00 !important;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.color-mosaic-3 {
+  color: #FE1159 !important;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.color-mosaic-4 {
+  color: #FF551A !important;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.color-mosaic-hover-1 {
+  --header-link-color: #5F4FA7;
+  --header-link-color-hover: #796ea8;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.color-mosaic-hover-2 {
+  --header-link-color: #FFBE00;
+  --header-link-color-hover: #ffd864;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.color-mosaic-hover-3 {
+  --header-link-color: #FE1159;
+  --header-link-color-hover: #ff6492;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.color-mosaic-hover-4 {
+  --header-link-color: #FF551A;
+  --header-link-color-hover: #ff8f6a;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.grid-item {
+  grid-column-start: auto;
+  grid-row-start: auto;
+  padding: 1px;
+}
+
+.button-advance {
+  font-weight: 600 !important;
+  text-decoration: none;
+  width: 25vh !important;
+  border-radius: 7px !important;
+  letter-spacing: -0.5px;
+  font-size: 0.9rem;
+  background: #bdbdbd !important;
+  color: #181818 !important;
+}

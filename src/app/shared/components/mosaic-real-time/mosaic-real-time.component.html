@@ -1,0 +1,19 @@
+<div class="backdrop" style="background-color: rgba(0, 0, 0, 1) !important;">
+  <button class="btn-close u-pull-right" style="width: 35px; height: 35px; background: darkgray;" (click)="onClose()"></button>
+
+  <div class="center" style="text-align: center; cursor: pointer; padding-top: 12.5%;" (click)="startShow()"  [hidden]="mosaicoVisible">
+    <h3 style="color: #fff; font-weight: 600;">Preparados para a surpresa?</h3>
+    <img [src]="photoURL('assets/images/Mosaiko.png')" class="grid-item" style="width: 15%;" />
+  </div>
+
+  <div [hidden]="!mosaicoVisible" class="u-center" style="display: flex; position: relative; max-width: 90%; max-height: 90%; width: 90%; height: 90%; margin-top: 2.5%;">
+    <div class="mosaic-width" [hidden]="!mosaicoVisible" style="position: relative; flex: 1;">
+      <div class="u-flex u-flex-row" style="width: 100%; height: 100%;" *ngFor="let image of arrayMatriz(mosaic.eixoY); let y = index">
+        <div class="u-flex u-flex-column" style="width: 100%; height: 100%;" *ngFor="let image of arrayMatriz(mosaic.eixoX); let x = index">
+          <img [src]="photoURL('assets/images/image_black.png')" *ngIf="!returnImageShow(x, y)" class="grid-item-2" />
+          <img [src]="photoURL(returnImageQuadrante(x, y))" *ngIf="returnImageShow(x, y)" class="grid-item-2" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

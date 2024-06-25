@@ -1,0 +1,128 @@
+<app-loading *ngIf="loading"></app-loading>
+<app-mosaic-real-time *ngIf="realTime" [mosaicDashboard]="mosaicSelected" (closeRealTime)="onCloseRealTime($event)">
+</app-mosaic-real-time>
+
+<div class="mt-1 mx-3">
+  <div class="grid grid-gap-3">
+    <div class="grid-c-9">
+      <!-- <div class="frame"> -->
+        <div class="u-center">
+          <div class="animated loading hide-text center-all" *ngIf="loadingImages">
+            <p>Hidden</p>
+          </div>
+
+          <div *ngIf="!loadingImages && mosaicsActive.length == 0">
+            <p class="title center-all">
+              Não possui mosaicos ativos no momento.
+            </p>
+          </div>
+
+          <!-- <div class="wrapper" *ngIf="!loadingImages">
+            <div *ngFor="let image of arrayMatriz(mosaicSelected.eixoX); let x = index">
+              <div class="grid-item" *ngFor="let image of arrayMatriz(mosaicSelected.eixoY); let y = index">
+                <a style="cursor: pointer;" (click)="redirectToPiece(returnImageId(x, y))">
+                  <img [src]="photoURL(returnImageQuadrante(x, y))" class="grid-item" />
+                </a>
+              </div>
+            </div>
+          </div> -->
+
+          <div *ngIf="!loadingImages" class="u-center" style="display: flex; position: relative; max-width: 90%; max-height: 90%; width: 90%; height: 90%; margin-top: 2.5%;">
+            <div class="mosaic-width" *ngIf="!loadingImages" style="position: relative; flex: 1;">
+              <div class="u-flex u-flex-row" style="width: 100%; height: 100%;" *ngFor="let image of arrayMatriz(mosaicSelected.eixoY); let y = index">
+                <div class="u-flex u-flex-column" style="width: 100%; height: 100%;" *ngFor="let image of arrayMatriz(mosaicSelected.eixoX); let x = index">
+                  <a [ngClass]="{'borderOnFocus': returnImageFocus(x,y)}" style="cursor: pointer;" (click)="redirectToPiece(returnImageId(x, y))">
+                    <img [src]="photoURL(returnImageQuadrante(x, y))" class="grid-item-2" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <!-- </div> -->
+    </div>
+    <div class="grid-c-3">
+      <div class="frame" style="height: 82.5vh;">
+        <div class="frame__header bg-color-mosaic" style="box-shadow: rgba(85, 85, 85, 0.1) 0px 2px 3px;">
+          <div class="color-border-2">
+            <p class="title m-0" style="color: #FFFFFF"><i class="far fa-image color-mosaic-2"></i> Mosaicos Ativos</p>
+            <div className="row ignore-screen level">
+              <div className="col-9 ignore-screen level-item input-control">
+                <select className="select-option" [(ngModel)]="mosaicSelected"
+                  (change)="setItemSelecionado(mosaicSelected)">
+                  <option class="option" *ngFor="let item of mosaicsActive" [ngValue]="item">
+                    {{item.codigo_treinamento}}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="color-border-2">
+            <p class="title m-0" style="color: #FFFFFF"><i class="fas fa-puzzle-piece color-mosaic-2"></i> Status Peças
+              Geradas</p>
+            <div className="row ignore-screen level">
+              <div className="col-9 ignore-screen level-item input-control">
+                <select className="select-option" placeholder="Escolha o filtro"
+                  (change)="changeFilterPieces(filterPieceSelected)" [(ngModel)]="filterPieceSelected">
+                  <option class="option" *ngFor="let item of piecesOptionsList" [ngValue]="item">
+                    {{item.value}}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="color-border-2">
+            <p class="title m-0" style="color: #FFFFFF"><i class="fas fa-puzzle-piece color-mosaic-2"></i>Busca por Nome</p>
+            <div className="row ignore-screen level">
+              <div className="col-9 ignore-screen level-item input-control">
+                <input type="text" class="form-group-input" placeholder="Nome do Participante" (keyup)="applyFilter($event)"/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="frame__body">
+          <ul class="menu u-overflow-auto" style="margin-left: -2.1rem !important; margin-right: -1rem !important;">
+            <li class="menu-item" *ngFor="let piece of piecesListFiltered; let i = index">
+              <a (mouseover)="piece.focus=true" (mouseout)="piece.focus=false">Peça: {{"Linha - " + piece.quadranteY + " Coluna - " + piece.quadranteX}}
+                <div style="float: right; cursor: pointer;" title="Resetar Peça" (click)="resetPiece(piece)">
+                  <i class="fas fa-sync-alt" style="font-size: 20px;"></i>
+                </div>
+                <div style="float: right; cursor: pointer; padding-right: 12px;" title="Copiar Link da Peça"
+                  (click)="copyLinkPiece(piece)">
+                  <i class="fas fa-clipboard" style="font-size: 20px;"></i>
+                </div>
+                <div [hidden]="!piece.nome_participante" style="margin-top: 2px;">
+                  <div>
+                    Participante: {{ piece.nome_participante }}
+                  </div>
+                </div>
+                <div style="margin-top: 2px;">
+                  <div>
+                    Enviada:
+                  </div>
+                  <div class="status-rounded"
+                    [ngClass]="{'bg-green-800': piece.imagem_participante, 'bg-red-800': !piece.imagem_participante }">
+                  </div>
+                </div>
+                <div style="margin-top: 2px;">
+                  <div>
+                    Gerada:
+                  </div>
+                  <div class="status-rounded"
+                    [ngClass]="{'bg-green-800': !piece.utilizavel, 'bg-yellow-300': piece.utilizavel }">
+                  </div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="frame__footer">
+          <div class="form-group input-control">
+            <button class="btn form-group-btn btn-link bg-color-mosaic" style="font-weight: 600; text-decoration: none;"
+              (click)="openRealTimeMosaic()">Mosaico Finalizado</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

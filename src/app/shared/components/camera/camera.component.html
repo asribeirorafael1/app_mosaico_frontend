@@ -1,0 +1,19 @@
+
+  <div style="text-align:center; position: relative">
+    <div *ngIf="showIconCam" class="camera-button" (click)="showNextWebcam(true)" style="color: white; z-index: 1;">
+      <img src="assets/icons/image-cam.png">
+    </div>
+      <webcam [height]="300" [width]="300" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
+		 [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable" [videoOptions]="videoOptions" [imageQuality]="1" (cameraSwitched)="cameraWasSwitched($event)"
+		 (initError)="handleInitError($event)"></webcam>
+    <br />
+    <div class="btn-group">
+
+      <div class="grid-c-12 grid-r-2 center" style="margin-top: 2vh; width: 250px;">
+        <button class="btn btn-animated button-advance" style="width: 100% !important;" (click)="triggerSnapshot()">TIRAR
+          FOTO</button>
+      </div>
+      <!-- <button class="button" (click)="onOffWebCame()">Toggle Camera</button>
+            <button class="button" (click)="changeWebCame(true)">Switch camera</button> -->
+    </div>
+  </div>
